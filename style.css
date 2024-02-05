@@ -1,0 +1,65 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+
+}
+/*( operBtns, numBtns ) */
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    gap: 10px;
+
+    background-color: slategray;
+}
+
+#textBox{
+    background-color: rgb(220, 220, 220);
+    width: 200px;
+    height: 40px;
+    padding: 7px;
+    text-align: right;
+    font-size: x-large;
+}
+
+#topBtns{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.topBtn{
+    width: 80px;
+    height: 40px;
+}
+
+#mainBtns{
+    display: flex;
+    gap: 5px;
+}
+
+#operBtns{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#numBtns{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 130px;
+    gap: 5px;
+}
+
+.numBtn{
+    width: 40px;
+    height: 40px;
+}
+
+.operBtn{
+    width: 40px;
+    height: 40px;
+}
