@@ -4,6 +4,10 @@ let currentNum = "";
 const setNums = [];
 const setOpers = [];
 
+//this is for when anything is in displayBox that should be erased when another input is given
+//(a number result that isn't followed by an operator, or the /0 error message)
+let eraseOnInput = false;
+
 
 const displayText = document.querySelector("#textBox");
 
@@ -12,7 +16,12 @@ for(i = 0; i < 10; i++){
     numBtns.push(document.querySelector(`.n${i}`))
 }
 
+//these literally just exist to != against in numBtns.'click' WHICH
+//is a result of doing that button click in the parent which has absorbed these for aestheticTM
+//and there's probably a better way that could've been chosen at like, 8 seperate steps but
 const negBtn = document.querySelector(".neg");
+const decBtn = document.querySelector(".dec");
+
 
 const operBtns = [document.querySelector(".add"), document.querySelector(".sub"), 
                   document.querySelector(".mul"), document.querySelector(".div"), ]
@@ -46,10 +55,15 @@ document.querySelector(".equal").addEventListener('click', () => {
         }
         setNums.unshift(result);
     }
-    displayText.textContent = setNums[0];
+    displayText.textContent = "";
     if(setOpers.length > 0){
+        displayText.textContent += setNums[0];
         displayText.textContent += setOpers[0];
     }
+    else{
+        addChar(setNums.pop());
+        eraseOnInput = true;
+    }    
 })
 
 document.querySelector("#numBtns").addEventListener('click', (eek) => {
@@ -59,55 +73,46 @@ document.querySelector("#numBtns").addEventListener('click', (eek) => {
     //this can't be the best way but i've run out of shame
     switch(eek.target){
         case numBtns[0]:
-            currentNum += "0";
-            displayText.textContent += "0";
+            addChar("0");
             break;
         case numBtns[1]:
-            currentNum += "1";
-            displayText.textContent += "1";
+            addChar("1");
             break;
         case numBtns[2]:
-            currentNum += "2";
-            displayText.textContent += "2";
+            addChar("2");
             break;
         case numBtns[3]:
-            currentNum += "3";
-            displayText.textContent += "3";
+            addChar("3");
             break;
         case numBtns[4]:
-            currentNum += "4";
-            displayText.textContent += "4";
+            addChar("4");
             break;
         case numBtns[5]:
-            currentNum += "5";
-            displayText.textContent += "5";
+            addChar("5");
             break;
         case numBtns[6]:
-            currentNum += "6";
-            displayText.textContent += "6";
+            addChar("6");
             break;
         case numBtns[7]:
-            currentNum += "7";
-            displayText.textContent += "7";
+            addChar("7");
             break;
         case numBtns[8]:
-            currentNum += "8";
-            displayText.textContent += "8";
+            addChar("8");
             break;
         case numBtns[9]:
-            currentNum += "9";
-            displayText.textContent += "9";
+            addChar("9");
+            break;
+        case decBtn:
+            if(currentNum != "" && !currentNum.includes(".")){
+                addChar(".");
+            }
             break;
         case negBtn:
             if(currentNum != ""){
                 displayText.textContent = displayText.textContent.substring(0,displayText.textContent.length-currentNum.length);
-                currentNum = (currentNum - (currentNum * 2)).toString();
-                //console.log(currentNum);
-                displayText.textContent += currentNum;
-                if(+currentNum > 0){
-                }
-                else{
-                }
+                newVal = (currentNum - (currentNum * 2)).toString();
+                currentNum = "";
+                addChar(newVal);
             }
             break;
     }
@@ -161,6 +166,7 @@ document.querySelector("#operBtns").addEventListener('click', (eek) => {
 
 function setCurrentNum(){
     if(currentNum != ""){
+        eraseOnInput = false;
         setNums.push(currentNum);
         currentNum = "";
     }
@@ -174,6 +180,15 @@ function clear(){
     displayText.textContent = "";
 }
 
+function addChar(ch){
+    if(eraseOnInput){
+        clear();
+        eraseOnInput = false;
+    }
+    currentNum += ch;
+    displayText.textContent += ch;
+}
+
 function add(x, y){
     //i feel like this is excessive but it was determined not to work otherwise so uh
     return parseInt(x)+parseInt(y);
@@ -184,14 +199,15 @@ function subtract(x, y){
 }
 
 function multiply(x, y){
-    return x*y;
+    return Math.round((x*y) * 1000)/1000;
 }
 
 function divide(x, y){
     if(x == 0 || y == 0){
         clear();
+        eraseOnInput = true;
         displayText.textContent = "hey stop :("
         return "stop";
     }
-    return x/y;
+    return Math.round((x/y) * 1000)/1000;
 }

@@ -78,7 +78,7 @@ body{
 
 #mainBtns{
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 
 #operBtns{
@@ -90,7 +90,7 @@ body{
 #numBtns{
     display: flex;
     flex-wrap: wrap;
-    justify-content: right;
+    justify-content: center;
     /*width: 130px;*/
     gap: 10px;
 }
