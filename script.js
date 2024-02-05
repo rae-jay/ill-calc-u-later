@@ -12,6 +12,8 @@ for(i = 0; i < 10; i++){
     numBtns.push(document.querySelector(`.n${i}`))
 }
 
+const negBtn = document.querySelector(".neg");
+
 const operBtns = [document.querySelector(".add"), document.querySelector(".sub"), 
                   document.querySelector(".mul"), document.querySelector(".div"), ]
 
@@ -95,6 +97,8 @@ document.querySelector("#numBtns").addEventListener('click', (eek) => {
         case numBtns[9]:
             currentNum += "9";
             displayText.textContent += "9";
+            break;
+        case negBtn:
             break;
     }
 })
