@@ -74,6 +74,18 @@ body{
     border-bottom-width: 10px;
 }
 
+/*back is in its own so that it can be the width of a sqrbtn but height of topbtn*/
+.back{
+    width: 60px;
+    height: 55px;
+
+    /*border stuff for buttons really should have been organized neater BUT
+    i didn't so*/
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 10px;
+}
 
 
 #mainBtns{

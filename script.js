@@ -5,7 +5,7 @@ const setNums = [];
 const setOpers = [];
 
 //this is for when anything is in displayBox that should be erased when another input is given
-//(a number result that isn't followed by an operator, or the /0 error message)
+//(a number result from a previous calculation that isn't followed by an operator, or the /0 error message)
 let eraseOnInput = false;
 
 
@@ -60,11 +60,24 @@ document.querySelector(".equal").addEventListener('click', () => {
         displayText.textContent += setNums[0];
         displayText.textContent += setOpers[0];
     }
-    else{
+    else if(setNums.length > 0){
         addChar(setNums.pop());
         eraseOnInput = true;
     }    
 })
+
+document.querySelector(".back").addEventListener('click', () => {
+    eraseOnInput = false;
+    if(currentNum != ""){
+        currentNum = currentNum.substring(0,currentNum.length-1);
+        displayText.textContent = displayText.textContent.substring(0,displayText.textContent.length - 1);
+    }
+    else if(setOpers.length > 0){
+        setOpers.pop();
+        displayText.textContent = displayText.textContent.substring(0,displayText.textContent.length - 1);
+        currentNum = setNums.pop();
+    }
+});
 
 document.querySelector("#numBtns").addEventListener('click', (eek) => {
     //this is literally just to clear the 'dont divide by zero' message and im SORRY
