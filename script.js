@@ -99,6 +99,16 @@ document.querySelector("#numBtns").addEventListener('click', (eek) => {
             displayText.textContent += "9";
             break;
         case negBtn:
+            if(currentNum != ""){
+                displayText.textContent = displayText.textContent.substring(0,displayText.textContent.length-currentNum.length);
+                currentNum = (currentNum - (currentNum * 2)).toString();
+                //console.log(currentNum);
+                displayText.textContent += currentNum;
+                if(+currentNum > 0){
+                }
+                else{
+                }
+            }
             break;
     }
 })
